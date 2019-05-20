@@ -25,6 +25,21 @@
             "style": {
                 "navigationBarTitleText": "我的"
             }
+        }, {
+            "path": "pages/new/new",
+            "style": {
+                "navigationBarTitleText": "新闻"
+            }
+        }, {
+            "path": "pages/new-detail/new-detail",
+            "style": {
+                "navigationBarTitleText": "新闻详情"
+            }
+        }, {
+            "path": "pages/local/local",
+            "style": {
+                "navigationBarTitleText": "本地生活"
+            }
         }
     ],
     "tabBar": {
@@ -36,6 +51,16 @@
             "text": "首页",
             "iconPath": "static/img/home.png",
             "selectedIconPath": "static/img/homeHL.png"
+        }, {
+            "pagePath": "pages/new/new",
+            "text": "新闻",
+            "iconPath": "static/img/new.png",
+            "selectedIconPath": "static/img/newHL.png"
+        }, {
+            "pagePath": "pages/local/local",
+            "text": "本地生活",
+            "iconPath": "static/img/local.png",
+            "selectedIconPath": "static/img/localHL.png"
         }, {
             "pagePath": "pages/user/user",
             "text": "我的",
