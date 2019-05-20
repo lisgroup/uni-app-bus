@@ -29,7 +29,7 @@
     export default {
         computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
         onLoad() {
-            if (!this.hasLogin) {
+            if (0) {
                 uni.showModal({
                     title: '未登录',
                     content: '您未登录，需要登录后才能继续',
