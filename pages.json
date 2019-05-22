@@ -6,6 +6,11 @@
                 "navigationBarTitleText": "苏州公交实时查询信息（仅供参考）"
             }
         }, {
+            "path": "pages/line/line",
+            "style": {
+                "navigationBarTitleText": "苏州公交实时查询信息（仅供参考）- 线路详情"
+            }
+        },{
             "path": "pages/main/main",
             "style": {
                 "navigationBarTitleText": "登录模板"
@@ -45,6 +50,10 @@
             "style": {
                 "navigationBarTitleText": "本地生活"
             }
+        }
+        ,{
+            "path" : "pages/line/line",
+            "style" : {}
         }
     ],
     "tabBar": {
