@@ -152,8 +152,7 @@
 				if (lineID || href) {
 					// 发送 POST 请求
 					uni.request({
-						// url: 'https://www.guke1.com/api/busLine',
-						url: 'http://localhost:8000/api/busLine',
+						url: 'https://www.guke1.com/api/busLine',
 						data: option,
 						method: 'POST',
 						success: (res) => {
@@ -177,6 +176,12 @@
 </script>
 
 <style>
+	.m-input {
+		width: 55%;
+		/* height: 100upx; */
+		text-align: center;
+	}
+
 	.action-row {
 		display: flex;
 		flex-direction: row;

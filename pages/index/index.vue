@@ -151,10 +151,11 @@
 
 <style>
 	.m-input {
-		width: 57.8%;
+		width: 55%;
 		/* height: 100upx; */
 		text-align: center;
 	}
+
 	.action-row {
 		display: flex;
 		flex-direction: row;
