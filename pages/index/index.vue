@@ -18,10 +18,20 @@
 					</t-tr>
 					<t-tr v-for="item in tableList" :key="item.id">
 						<t-td>
-							<text class="td-text" @click="navigateTo(item)">{{ item.bus }}</text>
+							<!-- #ifdef H5 -->
+							<text class="td-text" @click="navigateTo(item)" :data-item="item">{{ item.bus }}</text>
+							<!-- #endif -->
+							<!-- #ifndef H5 -->
+							<text class="td-text" @tap="jumpTo" :data-item="item">{{ item.bus }}</text>
+							<!-- #endif -->
 						</t-td>
 						<t-td>
+							<!-- #ifdef H5 -->
 							<text class="td-text" @click="navigateTo(item)">{{ item.FromTo }}</text>
+							<!-- #endif -->
+							<!-- #ifndef H5 -->
+							<text class="td-text" @tap="jumpTo">{{ item.FromTo }}</text>
+							<!-- #endif -->
 						</t-td>
 					</t-tr>
 				</t-table>
@@ -56,9 +66,21 @@
 			change(e) {
 				e.detail
 			},
+			jumpTo(e) {
+				const row = e.currentTarget.dataset.item
+				const query = row.lineID ? 'lineID=' + row.lineID + '&to=' + row.LineInfo : 'href=APTSLine.aspx&' + row.link.replace(
+					/APTSLine.aspx\?/, '')
+				if (query) {
+					uni.navigateTo({
+						url: '../line/line?' + query
+					})
+				}
+			},
 			navigateTo(row) {
 				// keep-alive 实现前进后退不刷新
-				const query = row.lineID ? 'lineID=' + row.lineID + '&to=' + row.LineInfo : 'href=APTSLine.aspx&' + row.link.replace(/APTSLine.aspx\?/, '')
+				console.log(row)
+				const query = row.lineID ? 'lineID=' + row.lineID + '&to=' + row.LineInfo : 'href=APTSLine.aspx&' + row.link.replace(
+					/APTSLine.aspx\?/, '')
 				// console.log(query)
 				uni.navigateTo({
 					url: '../line/line?' + query
@@ -128,6 +150,11 @@
 </script>
 
 <style>
+	.m-input {
+		width: 57.8%;
+		/* height: 100upx; */
+		text-align: center;
+	}
 	.action-row {
 		display: flex;
 		flex-direction: row;

@@ -13,7 +13,7 @@
         },{
             "path": "pages/main/main",
             "style": {
-                "navigationBarTitleText": "登录模板"
+                "navigationBarTitleText": "首页"
             }
         }, {
             "path": "pages/login/login",
@@ -50,10 +50,6 @@
             "style": {
                 "navigationBarTitleText": "本地生活"
             }
-        }
-        ,{
-            "path" : "pages/line/line",
-            "style" : {}
         }
     ],
     "tabBar": {
