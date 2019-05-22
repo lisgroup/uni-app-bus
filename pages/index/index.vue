@@ -17,8 +17,12 @@
 						<t-th>方向</t-th>
 					</t-tr>
 					<t-tr v-for="item in tableList" :key="item.id">
-						<t-td>{{ item.bus }}</t-td>
-						<t-td>{{ item.FromTo }}</t-td>
+						<t-td>
+							<text class="td-text" @click="navigateTo(item)">{{ item.bus }}</text>
+						</t-td>
+						<t-td>
+							<text class="td-text" @click="navigateTo(item)">{{ item.FromTo }}</text>
+						</t-td>
 					</t-tr>
 				</t-table>
 			</view>
@@ -52,6 +56,14 @@
 			change(e) {
 				e.detail
 			},
+			navigateTo(row) {
+				// keep-alive 实现前进后退不刷新
+				const query = row.lineID ? 'lineID=' + row.lineID + '&to=' + row.LineInfo : 'href=APTSLine.aspx&' + row.link.replace(/APTSLine.aspx\?/, '')
+				// console.log(query)
+				uni.navigateTo({
+					url: '../line/line?' + query
+				})
+			},
 			action() {
 				/**
 				 * 参数简单校验
@@ -60,7 +72,7 @@
 					uni.showToast({
 						icon: 'none',
 						title: '请输入线路名称'
-					});
+					})
 					return
 				}
 				const line_name = this.line_name
@@ -76,32 +88,40 @@
 			 * @param {Object} data
 			 */
 			_request(requestUrl, data) {
+				uni.showLoading({
+					title: 'loading'
+				})
 				uni.request({
 					url: requestUrl,
 					dataType: 'text',
 					data: data,
 					success: (res) => {
+						uni.hideLoading()
 						const obj = JSON.parse(res.data)
 						// uni.showToast({
 						// 	title: '请求成功',
 						// 	icon: 'success',
 						// 	mask: true,
 						// 	duration: duration
-						// });
+						// })
 						// this.res = '请求结果 : ' + JSON.stringify(res)
 						this.tableList = obj.data
 					},
 					fail: (err) => {
-						console.log('request fail', err);
+						uni.hideLoading()
+						console.log('request fail', err)
 						uni.showModal({
 							content: err.errMsg,
 							showCancel: false
-						});
+						})
 					},
 					complete: () => {
-						this.loading = false;
+						this.loading = false
 					}
-				});
+				})
+				setTimeout(function() {
+					uni.hideLoading()
+				}, 3000)
 			}
 		}
 	}
@@ -122,5 +142,14 @@
 	.text-line {
 		margin: 80upx 0 0upx 0;
 		line-height: 20upx;
+	}
+
+	.td-text {
+		/* background-color: #E9EEF3; */
+		/* align-content: center; */
+		/* display: block; */
+		text-align: center;
+		width: 100%;
+		height: 100%;
 	}
 </style>
