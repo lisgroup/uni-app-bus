@@ -31,3 +31,4 @@ git clone https://gitee.com/lisgroup/uni-app-bus
 #### 3. 打包文件
 
 按照以下顺序： 发布(U) > 原生App-云打包(P)
+![](readme/3.原生App-云打包.png)
