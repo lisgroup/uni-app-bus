@@ -63,6 +63,13 @@
 			// option为object类型，会序列化上个页面传递的参数
 			this.option = option
 			this.reloadAction(option)
+			uni.startPullDownRefresh()
+		},
+		onPullDownRefresh() {
+			this.reloadAction(this.option)
+			setTimeout(function() {
+				uni.stopPullDownRefresh()
+			}, 1000)
 		},
 		data() {
 			return {
@@ -146,7 +153,7 @@
 				})
 
 				const option = this.option
-				console.log(option)
+				// console.log(option)
 				const lineID = option.lineID
 				const href = option.href
 				if (lineID || href) {
@@ -160,7 +167,7 @@
 							if (res.data.code === 200) {
 								const data = res.data.data
 								this.title = '' + data.to
-								this.line_name = this.to = data.to
+								this.to = data.to
 								this.tableList = data.line
 							}
 
