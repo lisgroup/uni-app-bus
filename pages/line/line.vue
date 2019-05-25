@@ -9,11 +9,41 @@
 			</view>
 		</view>
 
-		<view class="msg">
+		<view class="warp" v-if="isList">
+			<view class="box">
+				<view class="text-line"></view>
+				<t-table @change="change">
+					<t-tr>
+						<t-th>线路</t-th>
+						<t-th>方向</t-th>
+					</t-tr>
+					<t-tr v-for="item in tableList" :key="item.id">
+						<t-td>
+							<!-- #ifdef H5 -->
+							<text class="td-text" @click="navigateTo(item)" :data-item="item">{{ item.bus }}</text>
+							<!-- #endif -->
+							<!-- #ifndef H5 -->
+							<text class="td-text" @tap="jumpTo" :data-item="item">{{ item.bus }}</text>
+							<!-- #endif -->
+						</t-td>
+						<t-td>
+							<!-- #ifdef H5 -->
+							<text class="td-text" @click="navigateTo(item)">{{ item.FromTo }}</text>
+							<!-- #endif -->
+							<!-- #ifndef H5 -->
+							<text class="td-text" @tap="jumpTo">{{ item.FromTo }}</text>
+							<!-- #endif -->
+						</t-td>
+					</t-tr>
+				</t-table>
+			</view>
+		</view>
+
+		<view class="msg" v-if="isLine">
 			<text class="msg-text">{{ to }}</text>
 			<button class="mini-btn" type="primary" size="mini" @click="reloadAction">刷新</button>
 		</view>
-		<view class="warp">
+		<view class="warp" v-if="isLine">
 			<view class="box">
 				<view class="text-line"></view>
 				<t-table @change="change">
@@ -23,7 +53,7 @@
 						<t-th>车牌</t-th>
 						<t-th>进站时间</t-th>
 					</t-tr>
-					<t-tr v-for="item in tableList" :key="item.id">
+					<t-tr v-for="item in tableLine" :key="item.id">
 						<t-td>
 							<text class="td-text">{{ item.stationName }}</text>
 						</t-td>
@@ -38,6 +68,7 @@
 						</t-td>
 					</t-tr>
 				</t-table>
+				<uni-load-more status="noMore"></uni-load-more>
 			</view>
 		</view>
 	</view>
@@ -45,6 +76,7 @@
 
 <script>
 	const duration = 2000
+	import uniLoadMore from "@/components/uni-load-more/uni-load-more.vue"
 	import mInput from '../../components/m-input.vue'
 	import tTable from '@/components/t-table/t-table.vue'
 	import tTh from '@/components/t-table/t-th.vue'
@@ -53,6 +85,7 @@
 
 	export default {
 		components: {
+			uniLoadMore,
 			mInput,
 			tTable,
 			tTh,
@@ -77,12 +110,25 @@
 				line_name: '',
 				to: '',
 				tableList: [],
-				option: {}
+				tableLine: [],
+				option: {},
+				isList: false,
+				isLine: true
 			}
 		},
 		methods: {
 			change(e) {
 				e.detail
+			},
+			jumpTo(e) {
+				const row = e.currentTarget.dataset.item
+				const query = row.lineID ? 'lineID=' + row.lineID + '&to=' + row.LineInfo : 'href=APTSLine.aspx&' + row.link.replace(
+					/APTSLine.aspx\?/, '')
+				if (query) {
+					uni.navigateTo({
+						url: '../line/line?' + query
+					})
+				}
 			},
 			navigateTo(row) {
 				// keep-alive 实现前进后退不刷新
@@ -94,6 +140,8 @@
 				})
 			},
 			action() {
+				this.isLine = false
+				this.isList = true
 				/**
 				 * 参数简单校验
 				 */
@@ -168,7 +216,7 @@
 								const data = res.data.data
 								this.title = '' + data.to
 								this.to = data.to
-								this.tableList = data.line
+								this.tableLine = data.line
 							}
 
 						}
