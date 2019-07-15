@@ -2,8 +2,8 @@
     "name" : "苏州公交",
     "appid" : "__UNI__6A14D07",
     "description" : "苏州公交查询APP",
-    "versionName" : "1.0.1",
-    "versionCode" : 101,
+    "versionName" : "1.0.2",
+    "versionCode" : 102,
     "transformPx" : false,
     "app-plus" : {
         /* 5+App特有相关 */
@@ -40,7 +40,7 @@
             },
             "icons" : {
                 "ios" : {
-                    "appstore" : "C:/Users/DEV/Downloads/bak/bus.png",
+                    "appstore" : "static/img/bus.png",
                     "ipad" : {
                         "app" : "unpackage/res/icons/76x76.png",
                         "app@2x" : "unpackage/res/icons/152x152.png",
