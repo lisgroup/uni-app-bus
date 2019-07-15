@@ -83,7 +83,7 @@
 	import tTh from '@/components/t-table/t-th.vue'
 	import tTr from '@/components/t-table/t-tr.vue'
 	import tTd from '@/components/t-table/t-td.vue'
-	import floatButton from '@/components/float-button.vue'
+	import floatButton from '@/components/float-button/float-button.vue'
 
 	export default {
 		components: {
